@@ -1,9 +1,11 @@
 {
-  "name": "ubushi-intro",
+  "name": "ubushi-website",
   "version": "1.0.0",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [
     "ubushi",
@@ -13,7 +15,7 @@
   ],
   "author": "Ubushi",
   "license": "ISC",
-  "description": "Ubushi website intro animation with reveal effect",
+  "description": "Ubushi Creative Digital Studio - Custom websites built to convert",
   "dependencies": {
     "gsap": "^3.13.0",
     "lenis": "^1.3.11",
