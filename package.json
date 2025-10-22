@@ -1,0 +1,22 @@
+{
+  "name": "ubushi-intro",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite"
+  },
+  "keywords": [
+    "ubushi",
+    "landing-page",
+    "intro",
+    "animation"
+  ],
+  "author": "Ubushi",
+  "license": "ISC",
+  "description": "Ubushi website intro animation with reveal effect",
+  "dependencies": {
+    "gsap": "^3.13.0",
+    "lenis": "^1.3.11",
+    "vite": "^7.1.3"
+  }
+}
