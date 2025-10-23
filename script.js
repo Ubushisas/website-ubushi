@@ -333,7 +333,7 @@ function initGallerySpotlight() {
   ScrollTrigger.create({
     trigger: ".gallery-spotlight",
     start: "top top",
-    end: `+=${window.innerHeight * 22}px`,
+    end: `+=${window.innerHeight * 10}px`,
     pin: true,
     pinSpacing: true,
     scrub: 1,
@@ -437,12 +437,12 @@ function initGallerySpotlight() {
         }
       }
 
-      // "Made to be seen..." stays visible until 62%, then fades out 62%-65% (before 20.jpg appears at 70%)
+      // "Made to be seen..." stays visible until 67%, then fades out 67%-69% (before 20.jpg appears at 70%)
       // Companies section appears AFTER 20.jpg cover image is visible (85% - 88%)
       const companiesSection = document.querySelector(".companies-section");
 
-      // Keep "Made to be seen..." visible (58% - 62%)
-      if (progress >= 0.58 && progress < 0.62) {
+      // Keep "Made to be seen..." visible (58% - 67%)
+      if (progress >= 0.58 && progress < 0.67) {
         if (outroHeaderSplit && outroHeaderSplit.words.length > 0) {
           gsap.set(outroHeader, {
             opacity: 1,
@@ -450,9 +450,9 @@ function initGallerySpotlight() {
           });
         }
         gsap.set(companiesSection, { opacity: 0, y: 50, pointerEvents: "none" });
-      } else if (progress >= 0.62 && progress <= 0.65) {
-        // Fade out "Made to be seen..." (62% - 65%)
-        const fadeProgress = (progress - 0.62) / 0.03;
+      } else if (progress >= 0.67 && progress <= 0.69) {
+        // Fade out "Made to be seen..." (67% - 69%)
+        const fadeProgress = (progress - 0.67) / 0.02;
         if (outroHeaderSplit && outroHeaderSplit.words.length > 0) {
           gsap.set(outroHeader, {
             opacity: 1 - fadeProgress,
@@ -460,7 +460,7 @@ function initGallerySpotlight() {
           });
         }
         gsap.set(companiesSection, { opacity: 0, y: 50, pointerEvents: "none" });
-      } else if (progress > 0.65 && progress < 0.85) {
+      } else if (progress > 0.69 && progress < 0.85) {
         // Empty space while 20.jpg appears
         gsap.set(outroHeader, { opacity: 0, y: -30 });
         gsap.set(companiesSection, { opacity: 0, y: 50, pointerEvents: "none" });
