@@ -291,11 +291,11 @@ document.fonts.ready.then(() => {
     scrollTrigger: {
       trigger: ".intro-strategy",
       start: "top 80%",
-      end: "top 30%",
+      end: "bottom 60%",
       scrub: 1,
     },
     opacity: 1,
-    stagger: 0.015,
+    stagger: 0.03,
     ease: "none"
   });
 });
