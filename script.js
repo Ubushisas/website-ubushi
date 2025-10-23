@@ -17,8 +17,12 @@ document.fonts.ready.then(() => {
   function createSplitTexts(elements) {
     const splits = {};
 
-    elements.forEach(({ key, selector, type }) => {
-      const config = { type, mask: type };
+    elements.forEach(({ key, selector, type, useMask = true }) => {
+      const config = { type };
+
+      if (useMask) {
+        config.mask = type;
+      }
 
       if (type === "chars") config.charsClass = "char";
       if (type === "lines") config.linesClass = "line";
@@ -35,7 +39,7 @@ document.fonts.ready.then(() => {
     { key: "siteLogoChars", selector: ".site-logo h2", type: "chars" },
     { key: "heroFooterP", selector: ".hero-footer p", type: "lines" },
     { key: "btnLabels", selector: ".btn-label span", type: "lines" },
-    { key: "introSectionChars", selector: ".intro-section h1", type: "chars" },
+    { key: "introSectionChars", selector: ".intro-section h1", type: "chars", useMask: false },
   ];
 
   const splits = createSplitTexts(splitElements);
