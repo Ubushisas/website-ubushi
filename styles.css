@@ -449,13 +449,11 @@ img {
   opacity: 0;
   z-index: 3;
   pointer-events: none;
-  mix-blend-mode: difference;
 }
 
 .companies-header {
   text-align: center;
   margin-bottom: 4rem;
-  mix-blend-mode: normal;
 }
 
 .companies-header h1 {
