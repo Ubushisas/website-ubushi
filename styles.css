@@ -151,9 +151,7 @@ img {
 }
 
 .btn:hover {
-  transform: scale(1.1) translateY(-5px);
-  background-color: #1a1a1a;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transform: scale(1.15);
 }
 
 .btn-icon {
@@ -619,9 +617,7 @@ img {
 }
 
 .outro-btn .btn:hover {
-  transform: scale(1.65) translateY(-8px);
-  background-color: #e8e8e8;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  transform: scale(1.2);
 }
 
 .outro-btn .btn-icon {

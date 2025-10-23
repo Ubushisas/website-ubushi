@@ -40,6 +40,7 @@ document.fonts.ready.then(() => {
     { key: "heroFooterP", selector: ".hero-footer p", type: "lines" },
     { key: "btnLabels", selector: ".btn-label span", type: "lines" },
     { key: "introSectionChars", selector: ".intro-section h1", type: "chars", useMask: false },
+    { key: "strategyChars", selector: ".intro-strategy", type: "chars", useMask: false },
   ];
 
   const splits = createSplitTexts(splitElements);
@@ -56,6 +57,7 @@ document.fonts.ready.then(() => {
     { y: "100%" }
   );
   gsap.set(splits.introSectionChars.chars, { y: "100%", opacity: 0 });
+  gsap.set(splits.strategyChars.chars, { opacity: 0 });
   gsap.set(".btn-icon", { clipPath: "circle(0% at 50% 50%)" });
   gsap.set(".btn", { scale: 0 });
   gsap.set(".site-logo", { opacity: 0 });
@@ -282,6 +284,19 @@ document.fonts.ready.then(() => {
     opacity: 1,
     stagger: 0.02,
     ease: "power4.out"
+  });
+
+  // Strategy text typewriter effect on scroll
+  gsap.to(splits.strategyChars.chars, {
+    scrollTrigger: {
+      trigger: ".intro-strategy",
+      start: "top 80%",
+      end: "top 30%",
+      scrub: 1,
+    },
+    opacity: 1,
+    stagger: 0.015,
+    ease: "none"
   });
 });
 
