@@ -264,6 +264,18 @@ document.fonts.ready.then(() => {
     ease: "power2.out"
   });
 
+  // Fade out Contact button in outro section
+  gsap.to(".contact-btn", {
+    scrollTrigger: {
+      trigger: ".outro-section",
+      start: "top 50%",
+      end: "top 20%",
+      scrub: 1,
+    },
+    opacity: 0,
+    ease: "power2.out"
+  });
+
   // 3D Gallery Spotlight Animation
   initGallerySpotlight();
 
