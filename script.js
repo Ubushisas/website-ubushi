@@ -35,6 +35,7 @@ document.fonts.ready.then(() => {
     { key: "siteLogoChars", selector: ".site-logo h2", type: "chars" },
     { key: "heroFooterP", selector: ".hero-footer p", type: "lines" },
     { key: "btnLabels", selector: ".btn-label span", type: "lines" },
+    { key: "introSectionChars", selector: ".intro-section h1", type: "chars" },
   ];
 
   const splits = createSplitTexts(splitElements);
@@ -50,6 +51,7 @@ document.fonts.ready.then(() => {
     ],
     { y: "100%" }
   );
+  gsap.set(splits.introSectionChars.chars, { y: "100%", opacity: 0 });
   gsap.set(".btn-icon", { clipPath: "circle(0% at 50% 50%)" });
   gsap.set(".btn", { scale: 0 });
   gsap.set(".site-logo", { opacity: 0 });
@@ -264,24 +266,19 @@ document.fonts.ready.then(() => {
   // Sticky Cards Animation
   initStickyCards();
 
-  // Intro section fade-in animation - sentence appears as you scroll down
-  gsap.fromTo(".intro-section h1",
-    {
-      opacity: 0,
-      y: 50
+  // Intro section character-by-character scroll animation
+  gsap.to(splits.introSectionChars.chars, {
+    scrollTrigger: {
+      trigger: ".intro-section",
+      start: "top 70%",
+      end: "top 30%",
+      scrub: 1,
     },
-    {
-      scrollTrigger: {
-        trigger: ".intro-section",
-        start: "top 70%",
-        end: "top 30%",
-        scrub: 1,
-      },
-      opacity: 1,
-      y: 0,
-      ease: "power2.out"
-    }
-  );
+    y: 0,
+    opacity: 1,
+    stagger: 0.02,
+    ease: "power4.out"
+  });
 });
 
 function initGallerySpotlight() {
@@ -388,6 +385,9 @@ function initGallerySpotlight() {
       }
 
       // Outro header fade in word-by-word with pauses (50% - 58%)
+      // Background color transition to white
+      const gallerySpotlight = document.querySelector(".gallery-spotlight");
+
       if (outroHeaderSplit && outroHeaderSplit.words.length > 0) {
         const totalWords = outroHeaderSplit.words.length;
         const wordDuration = 0.02; // Time for each word to fade in
@@ -400,32 +400,45 @@ function initGallerySpotlight() {
         if (progress >= outroStartProgress && progress <= outroEndProgress) {
           const outroProgress = (progress - outroStartProgress) / totalOutroDuration;
 
+          // Transition background to white
+          const bgProgress = Math.min(1, outroProgress * 2);
+          const bgColor = {
+            r: Math.round(bgProgress * 255),
+            g: Math.round(bgProgress * 255),
+            b: Math.round(bgProgress * 255)
+          };
+          gsap.set(gallerySpotlight, {
+            backgroundColor: `rgb(${bgColor.r}, ${bgColor.g}, ${bgColor.b})`
+          });
+
           outroHeaderSplit.words.forEach((word, index) => {
             const wordStartProgress = (index * totalDurationPerWord) / (totalWords * totalDurationPerWord);
             const wordEndProgress = wordStartProgress + (wordDuration / (totalWords * totalDurationPerWord));
 
             if (outroProgress >= wordEndProgress) {
-              gsap.set(word, { opacity: 1 });
+              gsap.set(word, { opacity: 1, color: '#000000' });
             } else if (outroProgress <= wordStartProgress) {
               gsap.set(word, { opacity: 0 });
             } else {
               const wordFadeProgress = (outroProgress - wordStartProgress) / (wordDuration / (totalWords * totalDurationPerWord));
-              gsap.set(word, { opacity: wordFadeProgress });
+              gsap.set(word, { opacity: wordFadeProgress, color: '#000000' });
             }
           });
         } else if (progress < outroStartProgress) {
           gsap.set(outroHeaderSplit.words, { opacity: 0 });
+          gsap.set(gallerySpotlight, { backgroundColor: '#000000' });
         } else if (progress > outroEndProgress) {
-          gsap.set(outroHeaderSplit.words, { opacity: 1 });
+          gsap.set(outroHeaderSplit.words, { opacity: 1, color: '#000000' });
+          gsap.set(gallerySpotlight, { backgroundColor: '#ffffff' });
         }
       }
 
-      // Pause on "Made to be seen, felt, and remembered." (58% - 71%)
-      // Stack effect: Hide outro header and reveal companies section (71% - 76%)
+      // Pause on "Made to be seen, felt, and remembered." (58% - 64%)
+      // Stack effect: Hide outro header and reveal companies section (64% - 68%)
       const companiesSection = document.querySelector(".companies-section");
 
-      if (progress >= 0.71 && progress <= 0.76) {
-        const stackProgress = (progress - 0.71) / 0.05;
+      if (progress >= 0.64 && progress <= 0.68) {
+        const stackProgress = (progress - 0.64) / 0.04;
 
         // Stack effect for outro header (push up)
         if (outroHeaderSplit && outroHeaderSplit.words.length > 0) {
@@ -443,15 +456,15 @@ function initGallerySpotlight() {
           y: (1 - stackProgress) * 50,
           pointerEvents: stackProgress > 0.5 ? "all" : "none"
         });
-      } else if (progress >= 0.58 && progress < 0.71) {
-        // Pause phase - keep outro header visible
+      } else if (progress >= 0.58 && progress < 0.64) {
+        // Shorter pause phase
         gsap.set(outroHeader, { y: 0, scale: 1, opacity: 1 });
         gsap.set(companiesSection, { opacity: 0, y: 50, pointerEvents: "none" });
       } else if (progress < 0.58) {
         gsap.set(outroHeader, { y: 0, scale: 1 });
         gsap.set(companiesSection, { opacity: 0, y: 50, pointerEvents: "none" });
-      } else if (progress > 0.76) {
-        // Companies section fully visible (pause from 76% to end)
+      } else if (progress > 0.68) {
+        // Companies section fully visible (pause from 68% to end - much shorter!)
         gsap.set(outroHeader, { y: -100, opacity: 0, scale: 0.9 });
         gsap.set(companiesSection, { opacity: 1, y: 0, pointerEvents: "all" });
       }
