@@ -333,7 +333,7 @@ function initGallerySpotlight() {
   ScrollTrigger.create({
     trigger: ".gallery-spotlight",
     start: "top top",
-    end: `+=${window.innerHeight * 10}px`,
+    end: `+=${window.innerHeight * 6}px`,
     pin: true,
     pinSpacing: true,
     scrub: 1,
@@ -518,9 +518,9 @@ function initStickyCards() {
         pinSpacing: false,
       });
 
-      // Animate card sliding up
+      // Animate card sliding up (reduced from 14vh to 8vh to keep titles visible)
       gsap.to(cardInner, {
-        y: `-${(cards.length - index) * 14}vh`,
+        y: `-${(cards.length - index) * 8}vh`,
         ease: "none",
         scrollTrigger: {
           trigger: card,
