@@ -264,12 +264,12 @@ document.fonts.ready.then(() => {
     ease: "power2.out"
   });
 
-  // Fade out Contact button in cards section
+  // Fade out Contact button when card 04 appears
   gsap.to(".contact-btn", {
     scrollTrigger: {
-      trigger: ".cards-section",
-      start: "top 50%",
-      end: "top 20%",
+      trigger: "#card-4",
+      start: "top 60%",
+      end: "top 30%",
       scrub: 1,
     },
     opacity: 0,
