@@ -437,38 +437,39 @@ function initGallerySpotlight() {
         }
       }
 
-      // Pause on "Made to be seen, felt, and remembered." (58% - 85%)
-      // Companies section appears AFTER 20.jpg cover image is visible (85% - 89%)
+      // "Made to be seen..." disappears at 58%-62% (before 20.jpg appears at 70%)
+      // Companies section appears AFTER 20.jpg cover image is visible (85% - 88%)
       const companiesSection = document.querySelector(".companies-section");
 
-      if (progress >= 0.85 && progress <= 0.89) {
-        const stackProgress = (progress - 0.85) / 0.04;
-
-        // Stack effect for outro header (push up)
+      // Hide "Made to be seen..." (58% - 62%)
+      if (progress >= 0.58 && progress <= 0.62) {
+        const fadeProgress = (progress - 0.58) / 0.04;
         if (outroHeaderSplit && outroHeaderSplit.words.length > 0) {
-          const pushDistance = stackProgress * -100;
           gsap.set(outroHeader, {
-            y: pushDistance,
-            opacity: 1 - stackProgress,
-            scale: 1 - stackProgress * 0.1
+            opacity: 1 - fadeProgress,
+            y: fadeProgress * -30,
           });
         }
-
-        // Reveal companies section
+        gsap.set(companiesSection, { opacity: 0, y: 50, pointerEvents: "none" });
+      } else if (progress >= 0.62 && progress < 0.85) {
+        // Empty space while 20.jpg appears
+        gsap.set(outroHeader, { opacity: 0, y: -30 });
+        gsap.set(companiesSection, { opacity: 0, y: 50, pointerEvents: "none" });
+      } else if (progress >= 0.85 && progress <= 0.88) {
+        // Reveal companies section (faster transition)
+        const stackProgress = (progress - 0.85) / 0.03;
+        gsap.set(outroHeader, { opacity: 0, y: -100 });
         gsap.set(companiesSection, {
           opacity: stackProgress,
           y: (1 - stackProgress) * 50,
           pointerEvents: stackProgress > 0.5 ? "all" : "none"
         });
-      } else if (progress >= 0.58 && progress < 0.85) {
-        // Long pause on "Made to be seen..." while cover image appears
-        gsap.set(outroHeader, { y: 0, scale: 1, opacity: 1 });
-        gsap.set(companiesSection, { opacity: 0, y: 50, pointerEvents: "none" });
       } else if (progress < 0.58) {
+        // Before "Made to be seen..." appears
         gsap.set(outroHeader, { y: 0, scale: 1 });
         gsap.set(companiesSection, { opacity: 0, y: 50, pointerEvents: "none" });
-      } else if (progress > 0.89) {
-        // Companies section fully visible from 89% to end
+      } else if (progress > 0.88) {
+        // Companies section fully visible from 88% to end (more scroll time)
         gsap.set(outroHeader, { y: -100, opacity: 0, scale: 0.9 });
         gsap.set(companiesSection, { opacity: 1, y: 0, pointerEvents: "all" });
       }

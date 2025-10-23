@@ -543,8 +543,8 @@ img {
 .companies-footer p {
   font-size: 2rem;
   line-height: 1.8;
-  color: #ffffff;
-  opacity: 0.9;
+  color: #000000;
+  opacity: 1;
 }
 
 .companies-footer strong {
