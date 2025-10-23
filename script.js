@@ -252,7 +252,7 @@ document.fonts.ready.then(() => {
     }
   });
 
-  // Fade in logo and Contact button at gallery section
+  // Fade in logo and Contact button at gallery section (both stay visible)
   gsap.to([".site-logo", ".contact-btn"], {
     scrollTrigger: {
       trigger: ".gallery-spotlight",
@@ -261,18 +261,6 @@ document.fonts.ready.then(() => {
       scrub: 1,
     },
     opacity: 1,
-    ease: "power2.out"
-  });
-
-  // Fade out Contact button when card 04 appears
-  gsap.to(".contact-btn", {
-    scrollTrigger: {
-      trigger: "#card-4",
-      start: "top 60%",
-      end: "top 30%",
-      scrub: 1,
-    },
-    opacity: 0,
     ease: "power2.out"
   });
 
