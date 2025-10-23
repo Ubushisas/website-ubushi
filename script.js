@@ -437,13 +437,22 @@ function initGallerySpotlight() {
         }
       }
 
-      // "Made to be seen..." disappears at 58%-62% (before 20.jpg appears at 70%)
+      // "Made to be seen..." stays visible until 62%, then fades out 62%-65% (before 20.jpg appears at 70%)
       // Companies section appears AFTER 20.jpg cover image is visible (85% - 88%)
       const companiesSection = document.querySelector(".companies-section");
 
-      // Hide "Made to be seen..." (58% - 62%)
-      if (progress >= 0.58 && progress <= 0.62) {
-        const fadeProgress = (progress - 0.58) / 0.04;
+      // Keep "Made to be seen..." visible (58% - 62%)
+      if (progress >= 0.58 && progress < 0.62) {
+        if (outroHeaderSplit && outroHeaderSplit.words.length > 0) {
+          gsap.set(outroHeader, {
+            opacity: 1,
+            y: 0,
+          });
+        }
+        gsap.set(companiesSection, { opacity: 0, y: 50, pointerEvents: "none" });
+      } else if (progress >= 0.62 && progress <= 0.65) {
+        // Fade out "Made to be seen..." (62% - 65%)
+        const fadeProgress = (progress - 0.62) / 0.03;
         if (outroHeaderSplit && outroHeaderSplit.words.length > 0) {
           gsap.set(outroHeader, {
             opacity: 1 - fadeProgress,
@@ -451,7 +460,7 @@ function initGallerySpotlight() {
           });
         }
         gsap.set(companiesSection, { opacity: 0, y: 50, pointerEvents: "none" });
-      } else if (progress >= 0.62 && progress < 0.85) {
+      } else if (progress > 0.65 && progress < 0.85) {
         // Empty space while 20.jpg appears
         gsap.set(outroHeader, { opacity: 0, y: -30 });
         gsap.set(companiesSection, { opacity: 0, y: 50, pointerEvents: "none" });
