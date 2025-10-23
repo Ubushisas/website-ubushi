@@ -449,6 +449,7 @@ img {
   opacity: 0;
   z-index: 3;
   pointer-events: none;
+  mix-blend-mode: difference;
 }
 
 .companies-header {
@@ -462,7 +463,7 @@ img {
   letter-spacing: 0.1em;
   line-height: 1;
   margin-bottom: 1rem;
-  color: var(--base-300);
+  color: #ffffff;
 }
 
 .companies-header p {
@@ -471,7 +472,7 @@ img {
   letter-spacing: 0.05em;
   opacity: 0.8;
   text-transform: uppercase;
-  color: var(--base-300);
+  color: #ffffff;
 }
 
 .companies-carousel {
@@ -527,7 +528,6 @@ img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  filter: brightness(0) invert(1);
   opacity: 0.8;
   transition: opacity 0.3s ease;
 }
@@ -543,7 +543,7 @@ img {
 .companies-footer p {
   font-size: 2rem;
   line-height: 1.8;
-  color: var(--base-300);
+  color: #ffffff;
   opacity: 0.9;
 }
 
