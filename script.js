@@ -437,12 +437,12 @@ function initGallerySpotlight() {
         }
       }
 
-      // Pause on "Made to be seen, felt, and remembered." (58% - 64%)
-      // Stack effect: Hide outro header and reveal companies section (64% - 68%)
+      // Pause on "Made to be seen, felt, and remembered." (58% - 85%)
+      // Companies section appears AFTER 20.jpg cover image is visible (85% - 89%)
       const companiesSection = document.querySelector(".companies-section");
 
-      if (progress >= 0.64 && progress <= 0.68) {
-        const stackProgress = (progress - 0.64) / 0.04;
+      if (progress >= 0.85 && progress <= 0.89) {
+        const stackProgress = (progress - 0.85) / 0.04;
 
         // Stack effect for outro header (push up)
         if (outroHeaderSplit && outroHeaderSplit.words.length > 0) {
@@ -460,15 +460,15 @@ function initGallerySpotlight() {
           y: (1 - stackProgress) * 50,
           pointerEvents: stackProgress > 0.5 ? "all" : "none"
         });
-      } else if (progress >= 0.58 && progress < 0.64) {
-        // Shorter pause phase
+      } else if (progress >= 0.58 && progress < 0.85) {
+        // Long pause on "Made to be seen..." while cover image appears
         gsap.set(outroHeader, { y: 0, scale: 1, opacity: 1 });
         gsap.set(companiesSection, { opacity: 0, y: 50, pointerEvents: "none" });
       } else if (progress < 0.58) {
         gsap.set(outroHeader, { y: 0, scale: 1 });
         gsap.set(companiesSection, { opacity: 0, y: 50, pointerEvents: "none" });
-      } else if (progress > 0.68) {
-        // Companies section fully visible (pause from 68% to end - much shorter!)
+      } else if (progress > 0.89) {
+        // Companies section fully visible from 89% to end
         gsap.set(outroHeader, { y: -100, opacity: 0, scale: 0.9 });
         gsap.set(companiesSection, { opacity: 1, y: 0, pointerEvents: "all" });
       }
