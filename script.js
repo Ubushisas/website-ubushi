@@ -373,7 +373,7 @@ function initGallerySpotlight() {
 
       const coverProgress = Math.max(0, (progress - 0.7) * 4);
       const coverZValue = -1000 + 1000 * coverProgress;
-      const coverScaleValue = Math.min(1, coverProgress * 2);
+      const coverScaleValue = Math.min(1.15, coverProgress * 2.3);
 
       gsap.set(coverImg, { z: coverZValue, scale: coverScaleValue, x: 0, y: 0 });
 
