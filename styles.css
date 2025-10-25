@@ -184,7 +184,7 @@ img {
 }
 
 .preloader-progress {
-  background-color: transparent;
+  background-color: var(--base-200);
   z-index: 1;
   will-change: opacity;
 }
@@ -221,7 +221,7 @@ img {
 }
 
 .preloader-mask {
-  background-color: transparent;
+  background-color: var(--base-100);
   -webkit-mask: linear-gradient(var(--base-300), var(--base-300)),
     url("/mask.svg") center/50% no-repeat;
   -webkit-mask-composite: subtract;
@@ -634,7 +634,7 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.6;
+  opacity: 0.75;
 }
 
 .outro-content {
