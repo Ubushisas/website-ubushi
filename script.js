@@ -295,9 +295,12 @@ document.fonts.ready.then(() => {
       scrub: 1,
     },
     opacity: 1,
-    stagger: 0.05,
+    stagger: 0.04,
     ease: "none"
   });
+
+  // About Us Modal
+  initAboutModal();
 });
 
 function initGallerySpotlight() {
@@ -546,5 +549,72 @@ function initStickyCards() {
         },
       });
     }
+  });
+}
+
+function initAboutModal() {
+  const aboutBtn = document.getElementById('about-btn');
+  const modal = document.getElementById('about-modal');
+  const modalOverlay = modal.querySelector('.about-modal-overlay');
+  const modalContent = modal.querySelector('.about-modal-content');
+  const closeBtn = document.getElementById('about-modal-close');
+  const textParagraphs = modal.querySelectorAll('.about-modal-text p');
+
+  // Custom easing function
+  const hopEasing = (t) =>
+    t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+
+  // Open modal
+  aboutBtn.addEventListener('click', () => {
+    modal.classList.add('active');
+
+    // Animate overlay
+    gsap.fromTo(modalOverlay, {
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+    }, {
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+      duration: 1,
+      ease: hopEasing,
+    });
+
+    // Fade in content
+    gsap.to(modalContent, {
+      opacity: 1,
+      duration: 0.5,
+      delay: 0.3,
+    });
+
+    // Stagger text paragraphs
+    gsap.to(textParagraphs, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      stagger: 0.1,
+      delay: 0.5,
+      ease: hopEasing,
+    });
+  });
+
+  // Close modal
+  closeBtn.addEventListener('click', () => {
+    gsap.to(textParagraphs, {
+      opacity: 0,
+      y: 30,
+      duration: 0.3,
+    });
+
+    gsap.to(modalContent, {
+      opacity: 0,
+      duration: 0.3,
+    });
+
+    gsap.to(modalOverlay, {
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+      duration: 0.8,
+      ease: hopEasing,
+      onComplete: () => {
+        modal.classList.remove('active');
+      },
+    });
   });
 }
