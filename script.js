@@ -558,6 +558,7 @@ function initAboutModal() {
   const modalOverlay = modal.querySelector('.about-modal-overlay');
   const modalContent = modal.querySelector('.about-modal-content');
   const closeBtn = document.getElementById('about-modal-close');
+  const modalImages = modal.querySelector('.about-modal-images');
   const textParagraphs = modal.querySelectorAll('.about-modal-text p');
 
   // Custom easing function
@@ -584,19 +585,34 @@ function initAboutModal() {
       delay: 0.3,
     });
 
+    // Fade in images
+    gsap.to(modalImages, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      delay: 0.4,
+      ease: hopEasing,
+    });
+
     // Stagger text paragraphs
     gsap.to(textParagraphs, {
       opacity: 1,
       y: 0,
       duration: 0.8,
       stagger: 0.1,
-      delay: 0.5,
+      delay: 0.6,
       ease: hopEasing,
     });
   });
 
   // Close modal
   closeBtn.addEventListener('click', () => {
+    gsap.to(modalImages, {
+      opacity: 0,
+      y: -30,
+      duration: 0.3,
+    });
+
     gsap.to(textParagraphs, {
       opacity: 0,
       y: 30,
