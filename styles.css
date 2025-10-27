@@ -185,8 +185,8 @@ img {
 }
 
 .btn:hover .btn-icon::before {
-  width: 1000%;
-  height: 1000%;
+  width: 2500%;
+  height: 2500%;
 }
 
 .btn:hover .btn-label span {
