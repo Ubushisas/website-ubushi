@@ -38,7 +38,7 @@ document.fonts.ready.then(() => {
     { key: "headerChars", selector: ".header h1", type: "chars" },
     { key: "siteLogoChars", selector: ".site-logo h2", type: "chars" },
     { key: "heroFooterP", selector: ".hero-footer p", type: "lines" },
-    { key: "btnLabels", selector: ".btn-label span", type: "lines" },
+    { key: "btnLabels", selector: ".button-text", type: "lines" },
     { key: "introSectionChars", selector: ".intro-section h1", type: "chars", useMask: false },
     { key: "strategyChars", selector: ".intro-strategy", type: "chars", useMask: false },
   ];
@@ -58,7 +58,7 @@ document.fonts.ready.then(() => {
   );
   gsap.set(splits.introSectionChars.chars, { y: "100%", opacity: 0 });
   gsap.set(splits.strategyChars.chars, { opacity: 0 });
-  gsap.set(".btn-icon", { clipPath: "circle(0% at 50% 50%)" });
+  gsap.set(".circle", { scale: 0 });
   gsap.set(".btn", { scale: 0 });
   gsap.set(".site-logo", { opacity: 0 });
 
@@ -185,8 +185,8 @@ document.fonts.ready.then(() => {
         duration: 1,
         ease: "power4.out",
         onStart: () => {
-          tl.to(".btn-icon", {
-            clipPath: "circle(100% at 50% 50%)",
+          tl.to(".circle", {
+            scale: 1,
             duration: 1,
             ease: "power2.out",
             delay: -1.25,
