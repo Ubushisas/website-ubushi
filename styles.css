@@ -80,6 +80,11 @@ img {
   object-fit: cover;
 }
 
+/* Hide mobile video on desktop */
+.hero-img-mobile {
+  display: none;
+}
+
 .hero-content {
   position: absolute;
   width: 100%;
@@ -1234,6 +1239,15 @@ img {
 
   .hero-inner {
     border-radius: 0;
+  }
+
+  /* Show mobile vertical video, hide desktop horizontal video */
+  .hero-img-desktop {
+    display: none;
+  }
+
+  .hero-img-mobile {
+    display: block;
   }
 
   .hero-footer {
