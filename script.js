@@ -558,12 +558,23 @@ function initAboutModal() {
   const modalOverlay = modal.querySelector('.about-modal-overlay');
   const modalContent = modal.querySelector('.about-modal-content');
   const closeBtn = document.getElementById('about-modal-close');
-  const modalImages = modal.querySelector('.about-modal-images');
+  const modalInner = modal.querySelector('.about-modal-inner');
   const textParagraphs = modal.querySelectorAll('.about-modal-text p');
+  const modalImages = modal.querySelectorAll('.about-modal-img');
+
+  let imageInterval;
+  let currentImageIndex = 0;
 
   // Custom easing function
   const hopEasing = (t) =>
     t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+
+  // Image fade transition
+  function fadeImages() {
+    modalImages[currentImageIndex].classList.remove('active');
+    currentImageIndex = (currentImageIndex + 1) % modalImages.length;
+    modalImages[currentImageIndex].classList.add('active');
+  }
 
   // Open modal
   aboutBtn.addEventListener('click', () => {
@@ -585,8 +596,8 @@ function initAboutModal() {
       delay: 0.3,
     });
 
-    // Fade in images
-    gsap.to(modalImages, {
+    // Fade in modal inner content
+    gsap.to(modalInner, {
       opacity: 1,
       y: 0,
       duration: 0.8,
@@ -603,11 +614,19 @@ function initAboutModal() {
       delay: 0.6,
       ease: hopEasing,
     });
+
+    // Start image fade interval
+    imageInterval = setInterval(fadeImages, 5000);
   });
 
   // Close modal
   closeBtn.addEventListener('click', () => {
-    gsap.to(modalImages, {
+    // Clear image interval
+    if (imageInterval) {
+      clearInterval(imageInterval);
+    }
+
+    gsap.to(modalInner, {
       opacity: 0,
       y: -30,
       duration: 0.3,
@@ -630,6 +649,12 @@ function initAboutModal() {
       ease: hopEasing,
       onComplete: () => {
         modal.classList.remove('active');
+        // Reset to first image
+        modalImages.forEach((img, index) => {
+          img.classList.remove('active');
+          if (index === 0) img.classList.add('active');
+        });
+        currentImageIndex = 0;
       },
     });
   });

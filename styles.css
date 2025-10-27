@@ -682,9 +682,9 @@ img {
 
 .outro-btn .btn {
   background-color: #ffffff;
-  padding: 0.25rem;
+  padding: 0.3rem;
   transform: scale(1.5);
-  min-width: 14rem;
+  min-width: 18rem;
 }
 
 .outro-btn .btn:hover {
@@ -702,11 +702,14 @@ img {
   left: 1rem;
   color: #ffffff;
   font-size: 1.5rem;
+  z-index: 2;
 }
 
 .outro-btn .btn .button-text {
   font-size: 1.2rem;
   color: #000000;
+  margin-left: 1.5rem;
+  z-index: 2;
 }
 
 .outro-btn .btn:hover .button-text {
@@ -1045,31 +1048,53 @@ img {
   color: #000000;
 }
 
-.about-modal-images {
+.about-modal-inner {
   display: flex;
-  gap: 2rem;
-  justify-content: center;
-  margin-bottom: 3rem;
+  gap: 4rem;
+  width: 100%;
+  max-width: 1200px;
+  align-items: center;
   opacity: 0;
 }
 
-.about-modal-image {
-  width: 150px;
-  height: 150px;
-  border-radius: 2rem;
-  overflow: hidden;
-  border: 3px solid #ffffff;
+.about-modal-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.about-modal-image img {
+.about-modal-image-container {
+  position: relative;
+  width: 400px;
+  height: 500px;
+  border-radius: 2rem;
+  overflow: hidden;
+}
+
+.about-modal-img {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.about-modal-img.active {
+  opacity: 1;
+}
+
+.about-modal-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
 .about-modal-text {
-  max-width: 900px;
-  text-align: center;
+  text-align: left;
 }
 
 .about-modal-text p {
@@ -1111,7 +1136,17 @@ img {
     font-size: 1.2rem;
   }
 
+  .about-modal-inner {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .about-modal-image-container {
+    width: 300px;
+    height: 400px;
+  }
+
   .about-modal-text p {
-    font-size: clamp(1.2rem, 5vw, 1.8rem);
+    font-size: clamp(1rem, 4vw, 1.2rem);
   }
 }
