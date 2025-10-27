@@ -13,6 +13,29 @@ gsap.ticker.add((time) => {
 });
 gsap.ticker.lagSmoothing(0);
 
+// Split hero title on mobile
+function splitHeroTitleForMobile() {
+  const heroTitle = document.querySelector('.hero-title');
+  if (heroTitle && window.innerWidth <= 768) {
+    heroTitle.innerHTML = 'Design.<br>Strategy.<br>Growth.';
+  }
+}
+
+// Call on load
+splitHeroTitleForMobile();
+
+// Call on resize
+window.addEventListener('resize', () => {
+  const heroTitle = document.querySelector('.hero-title');
+  if (heroTitle) {
+    if (window.innerWidth <= 768) {
+      heroTitle.innerHTML = 'Design.<br>Strategy.<br>Growth.';
+    } else {
+      heroTitle.innerHTML = 'Design. Strategy. Growth.';
+    }
+  }
+});
+
 document.fonts.ready.then(() => {
   function createSplitTexts(elements) {
     const splits = {};

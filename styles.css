@@ -1168,6 +1168,17 @@ img {
 
 /* Mobile (768px and below) */
 @media (max-width: 768px) {
+  /* Prevent word breaking */
+  * {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: none;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
   .site-logo h2 {
     font-size: 2rem;
   }
@@ -1201,6 +1212,15 @@ img {
   .btn .button-text {
     font-size: 0.8rem;
     margin-left: 1rem;
+    white-space: nowrap;
+  }
+
+  .hero {
+    padding: 0;
+  }
+
+  .hero-inner {
+    border-radius: 0;
   }
 
   .hero-footer {
@@ -1210,6 +1230,11 @@ img {
 
   .hero-footer p {
     font-size: 0.9rem;
+  }
+
+  .header h1 {
+    white-space: pre-line;
+    line-height: 1.1 !important;
   }
 
   .intro-section {
@@ -1270,6 +1295,27 @@ img {
     font-size: 1.2rem;
   }
 
+  /* Spotlight Outro Header Mobile */
+  .spotlight-outro-header {
+    width: 90% !important;
+    font-size: 1.8rem !important;
+    text-align: center;
+    padding: 0 1rem;
+  }
+
+  /* Companies Section Mobile */
+  .companies-header h1 {
+    font-size: 5rem !important;
+  }
+
+  .companies-header p {
+    font-size: 1.1rem !important;
+  }
+
+  .companies-footer p {
+    font-size: 1.2rem !important;
+  }
+
   /* About Modal Mobile */
   .about-modal-content {
     padding: 0;
@@ -1293,6 +1339,7 @@ img {
 
   .about-modal-left {
     flex: 0 0 40%;
+    padding-top: 50px;
   }
 
   .about-modal-right {
