@@ -553,7 +553,7 @@ img {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-50%));
+    transform: translateX(calc(-33.333%));
   }
 }
 
