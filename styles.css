@@ -1230,18 +1230,10 @@ img {
 
   .hero {
     padding: 0;
-    background-color: transparent;
   }
 
   .hero-inner {
     border-radius: 0;
-    background-image: url('/infinite-scroll/21.jpg');
-    background-size: cover;
-    background-position: center;
-  }
-
-  .hero-img {
-    display: none;
   }
 
   .hero-footer {
@@ -1308,13 +1300,14 @@ img {
     min-height: 200px;
   }
 
-  /* Gallery Spotlight Mobile - remove rounded corners */
+  /* Gallery Spotlight Mobile - remove rounded corners and change image */
   .img {
     border-radius: 0;
   }
 
   .spotlight-cover-img img {
     border-radius: 0;
+    content: url('/infinite-scroll/21.jpg');
   }
 
   .outro-section {
@@ -1339,11 +1332,11 @@ img {
   }
 
   .companies-scroll-indicator p {
-    font-size: 1.2rem;
+    font-size: 0.75rem;
   }
 
   .companies-scroll-indicator ion-icon {
-    font-size: 1.8rem;
+    font-size: 1rem;
   }
 
   /* Spotlight Outro Header Mobile */
@@ -1356,15 +1349,15 @@ img {
 
   /* Companies Section Mobile */
   .companies-header h1 {
-    font-size: 7rem !important;
+    font-size: 8rem !important;
   }
 
   .companies-header p {
-    font-size: 1.3rem !important;
+    font-size: 1.5rem !important;
   }
 
   .companies-footer p {
-    font-size: 1.5rem !important;
+    font-size: 1.8rem !important;
   }
 
   /* About Modal Mobile */
