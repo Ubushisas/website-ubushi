@@ -540,7 +540,7 @@ img {
 .carousel-track {
   display: flex;
   gap: 4rem;
-  animation: scroll 30s linear infinite;
+  animation: scroll 40s linear infinite;
   will-change: transform;
 }
 
@@ -549,11 +549,11 @@ img {
 }
 
 @keyframes scroll {
-  0% {
+  from {
     transform: translateX(0);
   }
-  100% {
-    transform: translateX(calc(-33.333%));
+  to {
+    transform: translateX(calc(-50% - 2rem));
   }
 }
 
