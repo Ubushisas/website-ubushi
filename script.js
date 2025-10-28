@@ -544,11 +544,14 @@ function initStickyCards() {
   });
 
   // Pin and animate each card
+  const isMobile = window.innerWidth <= 768;
+
   cards.forEach((card, index) => {
     const isLastCard = index === cards.length - 1;
     const cardInner = card.querySelector(".card-inner");
 
-    if (!isLastCard) {
+    // On mobile, include the last card in the stacking animation
+    if (!isLastCard || isMobile) {
       // Pin the card
       ScrollTrigger.create({
         trigger: card,

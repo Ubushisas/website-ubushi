@@ -1192,11 +1192,11 @@ img {
     position: relative;
   }
 
-  /* Hide preloader completely on mobile */
+  /* Show preloader on mobile */
   .preloader-mask,
   .preloader-progress,
   .preloader-content {
-    display: none !important;
+    display: block;
   }
 
   .site-logo h2 {
