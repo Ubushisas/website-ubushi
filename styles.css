@@ -1247,8 +1247,12 @@ img {
   }
 
   .gallery-spotlight {
-    background-color: #000000 !important;
+    background-color: #000000;
     min-height: 100vh;
+  }
+
+  .spotlight-outro-header h1 {
+    color: #000000 !important;
   }
 
   /* Show mobile vertical video, hide desktop horizontal video */

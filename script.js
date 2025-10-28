@@ -61,6 +61,12 @@ window.addEventListener('resize', () => {
 });
 
 document.fonts.ready.then(() => {
+  // Add line breaks to strategy on mobile BEFORE SplitText
+  const strategy = document.querySelector('.intro-strategy');
+  if (strategy && window.innerWidth <= 768) {
+    strategy.innerHTML = 'We believe<br>strategy isn\'t<br>just a deck.<br>It\'s how brands<br>move in the<br>world.';
+  }
+
   function createSplitTexts(elements) {
     const splits = {};
 
