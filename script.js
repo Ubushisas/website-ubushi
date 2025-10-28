@@ -21,8 +21,21 @@ function splitHeroTitleForMobile() {
   }
 }
 
+// Split strategy sentence on mobile
+function splitStrategyForMobile() {
+  const strategy = document.querySelector('.intro-strategy');
+  if (strategy) {
+    if (window.innerWidth <= 768) {
+      strategy.innerHTML = 'We believe<br>strategy isn\'t<br>just a deck.<br>It\'s how brands<br>move in the world.';
+    } else {
+      strategy.innerHTML = 'We believe strategy isn\'t just a deck. It\'s how brands move in the world.';
+    }
+  }
+}
+
 // Call on load
 splitHeroTitleForMobile();
+splitStrategyForMobile();
 
 // Call on resize
 window.addEventListener('resize', () => {
@@ -34,6 +47,7 @@ window.addEventListener('resize', () => {
       heroTitle.innerHTML = 'Design. Strategy. Growth.';
     }
   }
+  splitStrategyForMobile();
 });
 
 document.fonts.ready.then(() => {
