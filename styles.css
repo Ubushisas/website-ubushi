@@ -1192,11 +1192,8 @@ img {
     position: relative;
   }
 
-  /* Show preloader on mobile but hide the mask after animation */
-  .preloader-mask {
-    display: none !important;
-  }
-
+  /* Show preloader on mobile */
+  .preloader-mask,
   .preloader-progress,
   .preloader-content {
     display: block;
