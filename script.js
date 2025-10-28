@@ -735,7 +735,7 @@ function initAboutModal() {
 }
 
 function initContactModal() {
-  const contactBtns = document.querySelectorAll('.contact-btn a, .contact-btn .btn');
+  const contactBtns = document.querySelectorAll('.contact-btn a, .contact-btn .btn, .outro-btn a, .outro-btn .btn');
   const modal = document.getElementById('contact-modal');
   const modalOverlay = modal.querySelector('.contact-modal-overlay');
   const modalContent = modal.querySelector('.contact-modal-content');
