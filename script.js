@@ -33,9 +33,33 @@ function splitStrategyForMobile() {
   }
 }
 
+// Force video autoplay on mobile
+function forceVideoAutoplay() {
+  const videos = document.querySelectorAll('video');
+  videos.forEach(video => {
+    video.muted = true;
+    video.playsInline = true;
+    video.autoplay = true;
+
+    // Try to play the video
+    const playPromise = video.play();
+
+    if (playPromise !== undefined) {
+      playPromise.catch(error => {
+        // Auto-play was prevented, try playing on user interaction
+        console.log('Autoplay prevented:', error);
+        document.addEventListener('touchstart', () => {
+          video.play();
+        }, { once: true });
+      });
+    }
+  });
+}
+
 // Call on load
 splitHeroTitleForMobile();
 splitStrategyForMobile();
+forceVideoAutoplay();
 
 // Call on resize
 window.addEventListener('resize', () => {
@@ -121,7 +145,13 @@ document.fonts.ready.then(() => {
     return tl;
   }
 
-  const tl = gsap.timeline({ delay: 0.5 });
+  const tl = gsap.timeline({
+    delay: 0.5,
+    onComplete: () => {
+      // Retry video autoplay after animation completes
+      forceVideoAutoplay();
+    }
+  });
 
   tl.to(splits.logoChars.chars, {
     x: "0%",
