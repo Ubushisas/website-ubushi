@@ -1365,15 +1365,17 @@ img {
 
   /* Companies Section Mobile */
   .companies-header h1 {
-    font-size: 8rem !important;
+    font-size: 10rem !important;
   }
 
   .companies-header p {
-    font-size: 1.5rem !important;
+    font-size: 2rem !important;
+    max-width: 80%;
+    margin: 0 auto;
   }
 
   .companies-footer p {
-    font-size: 1.8rem !important;
+    font-size: 2.5rem !important;
   }
 
   /* About Modal Mobile */
@@ -1398,12 +1400,12 @@ img {
   }
 
   .about-modal-left {
-    flex: 0 0 40%;
+    flex: 0 0 50%;
     padding-top: 50px;
   }
 
   .about-modal-right {
-    flex: 0 0 60%;
+    flex: 0 0 50%;
     padding: 1.5rem;
   }
 

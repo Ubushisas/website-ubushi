@@ -162,18 +162,17 @@ document.fonts.ready.then(() => {
         scale: 6,
         duration: 2.5,
         ease: "power3.out",
-        onComplete: () => {
-          // Fade out mask smoothly on mobile after zoom completes
-          if (window.innerWidth <= 768) {
-            gsap.to(".preloader-mask", {
-              opacity: 0,
-              duration: 1.5,
-              ease: "power2.out"
-            });
-          }
-        }
       },
       "<"
+    )
+    .to(
+      ".preloader-mask",
+      {
+        opacity: window.innerWidth <= 768 ? 0 : 1,
+        duration: 0.5,
+        ease: "power3.out",
+      },
+      "-=0.25"
     )
     .to(
       ".hero-img",
