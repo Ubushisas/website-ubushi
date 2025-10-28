@@ -1192,8 +1192,10 @@ img {
     position: relative;
   }
 
-  /* Hide any potential overlays or masks on mobile */
-  .preloader-mask {
+  /* Hide preloader completely on mobile */
+  .preloader-mask,
+  .preloader-progress,
+  .preloader-content {
     display: none !important;
   }
 
