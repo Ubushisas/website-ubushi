@@ -1246,6 +1246,11 @@ img {
     border-radius: 0;
   }
 
+  .gallery-spotlight {
+    background-color: #000000 !important;
+    min-height: 100vh;
+  }
+
   /* Show mobile vertical video, hide desktop horizontal video */
   .hero-img-desktop {
     display: none;
