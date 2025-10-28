@@ -160,9 +160,18 @@ document.fonts.ready.then(() => {
       ".preloader-mask",
       {
         scale: 6,
-        opacity: window.innerWidth <= 768 ? 0 : 1,
         duration: 2.5,
         ease: "power3.out",
+        onComplete: () => {
+          // Fade out mask smoothly on mobile after zoom completes
+          if (window.innerWidth <= 768) {
+            gsap.to(".preloader-mask", {
+              opacity: 0,
+              duration: 1.5,
+              ease: "power2.out"
+            });
+          }
+        }
       },
       "<"
     )
