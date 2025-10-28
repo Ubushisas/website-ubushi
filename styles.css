@@ -988,6 +988,108 @@ img {
   }
 }
 
+/* Contact Modal */
+.contact-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  display: none;
+  pointer-events: none;
+}
+
+.contact-modal.active {
+  display: block;
+  pointer-events: all;
+}
+
+.contact-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+}
+
+.contact-modal-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+}
+
+.contact-modal-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 45px;
+  height: 45px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  z-index: 10;
+}
+
+.contact-modal-close:hover {
+  background: #ffffff;
+  transform: rotate(90deg);
+}
+
+.contact-modal-close span {
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+.contact-modal-close:hover span {
+  color: #000000;
+}
+
+.contact-modal-inner {
+  max-width: 900px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 3rem;
+  opacity: 0;
+  transform: translateY(30px);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.contact-modal-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.contact-modal-header h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.contact-modal-header p {
+  font-size: 1.1rem;
+  color: #666666;
+}
+
 /* About Us Modal */
 .about-modal {
   position: fixed;
@@ -1556,5 +1658,39 @@ img {
   .about-modal-text p {
     font-size: clamp(0.8rem, 3vw, 1rem);
     margin-bottom: 1rem;
+  }
+
+  /* Contact Modal Mobile */
+  .contact-modal-content {
+    padding: 1rem;
+  }
+
+  .contact-modal-close {
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+  }
+
+  .contact-modal-close span {
+    font-size: 1rem;
+  }
+
+  .contact-modal-inner {
+    padding: 1.5rem;
+    max-height: 85vh;
+  }
+
+  .contact-modal-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .contact-modal-header p {
+    font-size: 0.95rem;
+  }
+
+  .calendly-inline-widget {
+    min-height: 600px !important;
+    height: 600px !important;
   }
 }

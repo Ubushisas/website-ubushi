@@ -369,6 +369,9 @@ document.fonts.ready.then(() => {
 
   // About Us Modal
   initAboutModal();
+
+  // Contact Modal
+  initContactModal();
 });
 
 function initGallerySpotlight() {
@@ -728,5 +731,79 @@ function initAboutModal() {
         currentImageIndex = 0;
       },
     });
+  });
+}
+
+function initContactModal() {
+  const contactBtns = document.querySelectorAll('.contact-btn a, .contact-btn .btn');
+  const modal = document.getElementById('contact-modal');
+  const modalOverlay = modal.querySelector('.contact-modal-overlay');
+  const modalContent = modal.querySelector('.contact-modal-content');
+  const closeBtn = document.getElementById('contact-modal-close');
+  const modalInner = modal.querySelector('.contact-modal-inner');
+
+  // Custom easing function
+  const hopEasing = (t) =>
+    t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+
+  // Open modal
+  contactBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.classList.add('active');
+
+      // Animate overlay
+      gsap.fromTo(modalOverlay, {
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+      }, {
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        duration: 1,
+        ease: hopEasing,
+      });
+
+      // Fade in content
+      gsap.to(modalContent, {
+        opacity: 1,
+        duration: 0.5,
+        delay: 0.3,
+      });
+
+      // Fade in modal inner content
+      gsap.to(modalInner, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        delay: 0.4,
+        ease: hopEasing,
+      });
+    });
+  });
+
+  // Close modal
+  closeBtn.addEventListener('click', () => {
+    gsap.to(modalInner, {
+      opacity: 0,
+      y: -30,
+      duration: 0.3,
+    });
+
+    gsap.to(modalContent, {
+      opacity: 0,
+      duration: 0.3,
+    });
+
+    gsap.to(modalOverlay, {
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+      duration: 0.8,
+      ease: hopEasing,
+      onComplete: () => {
+        modal.classList.remove('active');
+      },
+    });
+  });
+
+  // Close on overlay click
+  modalOverlay.addEventListener('click', () => {
+    closeBtn.click();
   });
 }
