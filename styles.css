@@ -16,6 +16,16 @@ body {
   font-family: "Host Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
+/* Hide any notification badges or browser extension icons */
+[class*="notification"],
+[class*="badge"],
+[id*="notification"],
+[id*="badge"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
 h1, h2, h3, h4, h5, h6, p, span, div {
   font-family: "Host Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
