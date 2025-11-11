@@ -125,13 +125,234 @@ img {
   opacity: 0.5;
 }
 
-.contact-btn {
+/* Hamburger Menu */
+.hamburger-menu {
   position: fixed;
   top: 2rem;
   right: 2rem;
   z-index: 10000;
   will-change: transform, opacity;
   opacity: 0;
+  mix-blend-mode: normal;
+}
+
+.hamburger-btn {
+  width: 40px;
+  height: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  transition: none;
+}
+
+.hamburger-btn:hover {
+  opacity: 1;
+}
+
+.hamburger-btn span {
+  width: 32px;
+  height: 4px;
+  background: #ffffff;
+  display: block;
+  transition: background 0.3s ease, transform 0.3s ease;
+  border-radius: 2px;
+}
+
+/* Dark section - white icon */
+.hamburger-menu.on-dark .hamburger-btn span {
+  background: #ffffff;
+}
+
+/* Light section - black icon */
+.hamburger-menu.on-light .hamburger-btn span {
+  background: #000000;
+}
+
+.hamburger-btn.active span:nth-child(1) {
+  transform: rotate(45deg) translate(7px, 7px);
+}
+
+.hamburger-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Full-Screen Hamburger Menu */
+.hamburger-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: none;
+  pointer-events: none;
+}
+
+.hamburger-fullscreen.active {
+  display: block;
+  pointer-events: all;
+}
+
+.hamburger-fullscreen-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+}
+
+.hamburger-fullscreen-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  opacity: 0;
+}
+
+.hamburger-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+  max-width: 1400px;
+  width: 100%;
+  height: 70%;
+}
+
+.hamburger-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 2rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.076, 1), box-shadow 0.4s ease;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.hamburger-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.hamburger-card:hover {
+  transform: scale(1.05) translateY(-10px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+}
+
+.hamburger-card:hover::before {
+  opacity: 1;
+}
+
+.hamburger-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+  z-index: 2;
+}
+
+.hamburger-card-inner h2 {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.076, 1), color 0.3s ease;
+}
+
+.hamburger-card:hover .hamburger-card-inner h2 {
+  transform: scale(1.1);
+  color: #1a1a1a;
+}
+
+.hamburger-card-inner p {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #666666;
+  opacity: 0.8;
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.65, 0, 0.076, 1);
+}
+
+.hamburger-card:hover .hamburger-card-inner p {
+  opacity: 1;
+  transform: translateY(5px);
+}
+
+/* Tablet/Mobile Responsive */
+@media (max-width: 1024px) {
+  .hamburger-cards {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    height: auto;
+  }
+
+  .hamburger-card {
+    min-height: 300px;
+  }
+
+  .hamburger-card-inner h2 {
+    font-size: 3rem;
+  }
+
+  .hamburger-card-inner p {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hamburger-fullscreen-content {
+    padding: 2rem 1.5rem;
+  }
+
+  .hamburger-cards {
+    gap: 1.5rem;
+  }
+
+  .hamburger-card {
+    min-height: 250px;
+    border-radius: 1.5rem;
+  }
+
+  .hamburger-card-inner {
+    padding: 2rem;
+  }
+
+  .hamburger-card-inner h2 {
+    font-size: 2.5rem;
+  }
+
+  .hamburger-card-inner p {
+    font-size: 1rem;
+  }
 }
 
 .menu-btn {
@@ -989,6 +1210,107 @@ img {
 }
 
 /* Contact Modal */
+/* Portfolio Modal */
+.portfolio-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  display: none;
+  pointer-events: none;
+}
+
+.portfolio-modal.active {
+  display: block;
+  pointer-events: all;
+}
+
+.portfolio-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+}
+
+.portfolio-modal-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.portfolio-modal-logo {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 10001;
+}
+
+.portfolio-modal-logo h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.portfolio-modal-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 45px;
+  height: 45px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10001;
+  backdrop-filter: blur(10px);
+}
+
+.portfolio-modal-close:hover {
+  background: #ffffff;
+  transform: rotate(90deg);
+}
+
+.portfolio-modal-close span {
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+.portfolio-modal-close:hover span {
+  color: #000000;
+}
+
+.portfolio-slider-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.portfolio-slider-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Contact Modal */
 .contact-modal {
   position: fixed;
   top: 0;
@@ -1026,6 +1348,22 @@ img {
   justify-content: center;
   padding: 2rem;
   opacity: 0;
+}
+
+.contact-modal-logo {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 10;
+}
+
+.contact-modal-logo h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .contact-modal-close {
@@ -1660,9 +1998,28 @@ img {
     margin-bottom: 1rem;
   }
 
+  /* Portfolio Modal Mobile */
+  .portfolio-modal-logo {
+    top: 1.5rem;
+    left: 1.5rem;
+  }
+
+  .portfolio-modal-logo h2 {
+    font-size: 2rem;
+  }
+
   /* Contact Modal Mobile */
   .contact-modal-content {
     padding: 1rem;
+  }
+
+  .contact-modal-logo {
+    top: 1rem;
+    left: 1rem;
+  }
+
+  .contact-modal-logo h2 {
+    font-size: 2rem;
   }
 
   .contact-modal-close {

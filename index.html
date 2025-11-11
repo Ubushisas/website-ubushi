@@ -47,14 +47,33 @@
               <h1 class="hero-title">Design. Strategy. Growth.</h1>
             </div>
 
-            <div class="contact-btn">
-              <a href="https://ubushi.vercel.app" target="_blank" rel="noopener noreferrer" class="btn">
-                <span class="circle"></span>
-                <div class="icon">
-                  <ion-icon name="arrow-forward-sharp"></ion-icon>
+            <div class="hamburger-menu">
+              <div class="hamburger-btn" id="hamburger-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <!-- Full-Screen Hamburger Menu -->
+            <div class="hamburger-fullscreen" id="hamburger-fullscreen">
+              <div class="hamburger-fullscreen-overlay"></div>
+              <div class="hamburger-fullscreen-content">
+                <div class="hamburger-cards">
+                  <div class="hamburger-card" id="hamburger-portfolio-card">
+                    <div class="hamburger-card-inner">
+                      <h2>Portfolio</h2>
+                      <p>Explore our latest work</p>
+                    </div>
+                  </div>
+                  <div class="hamburger-card" id="hamburger-contact-card">
+                    <div class="hamburger-card-inner">
+                      <h2>Contact</h2>
+                      <p>Let's work together</p>
+                    </div>
+                  </div>
                 </div>
-                <span class="button-text">Contact</span>
-              </a>
+              </div>
             </div>
 
             <div class="menu-btn">
@@ -210,7 +229,7 @@
           <h1>We build digital spaces that turn into action</h1>
         </div>
         <div class="spotlight-outro-header">
-          <h1>Made to be seen, felt, and remembered.</h1>
+          <h1>And tools that make every action smarter.</h1>
         </div>
         <div class="companies-section">
           <div class="companies-header">
@@ -278,9 +297,11 @@
         <div class="card" id="card-2">
           <div class="card-inner">
             <div class="card-content">
-              <h1>02. Brand Identity</h1>
+              <h1>02. Studio Dashboard</h1>
               <p>
-                A clear visual direction that brings consistency across every touchpoint. We help brands look and feel aligned — online and beyond.
+                One dashboard that connects bookings, payments, and performance in real time.
+
+                -A smart assistant that reveals what's working, what could improve, and how to make every hour count.
               </p>
             </div>
             <div class="card-img">
@@ -369,10 +390,29 @@
       </div>
     </div>
 
+    <!-- Portfolio Modal -->
+    <div class="portfolio-modal" id="portfolio-modal">
+      <div class="portfolio-modal-overlay"></div>
+      <div class="portfolio-modal-content">
+        <div class="portfolio-modal-logo">
+          <h2>Ubushi</h2>
+        </div>
+        <div class="portfolio-modal-close" id="portfolio-modal-close">
+          <span>✕</span>
+        </div>
+        <div class="portfolio-slider-container">
+          <iframe src="http://localhost:3000/" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
     <!-- Contact Modal -->
     <div class="contact-modal" id="contact-modal">
       <div class="contact-modal-overlay"></div>
       <div class="contact-modal-content">
+        <div class="contact-modal-logo">
+          <h2>Ubushi</h2>
+        </div>
         <div class="contact-modal-close" id="contact-modal-close">
           <span>✕</span>
         </div>

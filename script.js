@@ -322,8 +322,8 @@ document.fonts.ready.then(() => {
     }
   });
 
-  // Fade in logo and Contact button at gallery section (both stay visible)
-  gsap.to([".site-logo", ".contact-btn"], {
+  // Fade in logo and Hamburger menu at gallery section (both stay visible)
+  gsap.to([".site-logo", ".hamburger-menu"], {
     scrollTrigger: {
       trigger: ".gallery-spotlight",
       start: "top 80%",
@@ -367,8 +367,14 @@ document.fonts.ready.then(() => {
     ease: "none"
   });
 
+  // Hamburger Menu
+  initHamburgerMenu();
+
   // About Us Modal
   initAboutModal();
+
+  // Portfolio Modal
+  initPortfolioModal();
 
   // Contact Modal
   initContactModal();
@@ -734,8 +740,318 @@ function initAboutModal() {
   });
 }
 
+function initHamburgerMenu() {
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const hamburgerFullscreen = document.getElementById('hamburger-fullscreen');
+  const hamburgerOverlay = hamburgerFullscreen?.querySelector('.hamburger-fullscreen-overlay');
+  const hamburgerContent = hamburgerFullscreen?.querySelector('.hamburger-fullscreen-content');
+  const portfolioCard = document.getElementById('hamburger-portfolio-card');
+  const contactCard = document.getElementById('hamburger-contact-card');
+  const hamburgerMenu = document.querySelector('.hamburger-menu');
+
+  if (!hamburgerBtn || !hamburgerFullscreen) return;
+
+  // Custom easing function
+  const hopEasing = (t) =>
+    t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+
+  // Open full-screen menu
+  hamburgerBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    hamburgerBtn.classList.toggle('active');
+
+    if (hamburgerBtn.classList.contains('active')) {
+      hamburgerFullscreen.classList.add('active');
+
+      // Animate overlay
+      gsap.to(hamburgerOverlay, {
+        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+        duration: 0.8,
+        ease: hopEasing,
+      });
+
+      // Fade in content
+      gsap.to(hamburgerContent, {
+        opacity: 1,
+        duration: 0.6,
+        delay: 0.3,
+      });
+
+      // Animate cards
+      gsap.fromTo('.hamburger-card',
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.2,
+          delay: 0.4,
+          ease: hopEasing
+        }
+      );
+    } else {
+      closeHamburgerMenu();
+    }
+  });
+
+  // Close full-screen menu
+  function closeHamburgerMenu() {
+    // Fade out content
+    gsap.to(hamburgerContent, {
+      opacity: 0,
+      duration: 0.3,
+    });
+
+    // Animate overlay
+    gsap.to(hamburgerOverlay, {
+      clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
+      duration: 0.6,
+      delay: 0.2,
+      ease: hopEasing,
+      onComplete: () => {
+        hamburgerFullscreen.classList.remove('active');
+        hamburgerBtn.classList.remove('active');
+      },
+    });
+  }
+
+  // Portfolio card click - open portfolio modal
+  if (portfolioCard) {
+    portfolioCard.addEventListener('click', () => {
+      closeHamburgerMenu();
+      setTimeout(() => {
+        const portfolioModal = document.getElementById('portfolio-modal');
+        const modalOverlay = portfolioModal.querySelector('.portfolio-modal-overlay');
+        const modalContent = portfolioModal.querySelector('.portfolio-modal-content');
+
+        portfolioModal.classList.add('active');
+
+        gsap.to(modalOverlay, {
+          clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+          duration: 0.8,
+          ease: hopEasing,
+        });
+
+        gsap.to(modalContent, {
+          opacity: 1,
+          duration: 0.6,
+          delay: 0.3,
+        });
+      }, 800);
+    });
+  }
+
+  // Contact card click - open contact modal
+  if (contactCard) {
+    contactCard.addEventListener('click', () => {
+      closeHamburgerMenu();
+      setTimeout(() => {
+        const contactModal = document.getElementById('contact-modal');
+        const modalOverlay = contactModal.querySelector('.contact-modal-overlay');
+        const modalContent = contactModal.querySelector('.contact-modal-content');
+        const modalInner = contactModal.querySelector('.contact-modal-inner');
+
+        contactModal.classList.add('active');
+
+        gsap.fromTo(modalOverlay, {
+          clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+        }, {
+          clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          duration: 1,
+          ease: hopEasing,
+        });
+
+        gsap.to(modalContent, {
+          opacity: 1,
+          duration: 0.5,
+          delay: 0.3,
+        });
+
+        gsap.to(modalInner, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          delay: 0.4,
+          ease: hopEasing,
+        });
+      }, 800);
+    });
+  }
+
+  // Detect section background color and update dropdown styling
+  function updateDropdownStyle() {
+    const menuRect = hamburgerMenu.getBoundingClientRect();
+    const menuY = menuRect.top + menuRect.height / 2;
+
+    let isDark = false; // Default to light (black icon) for white spaces
+
+    // First, check if we're in the cards section - need to check individual cards
+    const cardsSection = document.querySelector('.cards-section');
+    if (cardsSection) {
+      const cardsSectionRect = cardsSection.getBoundingClientRect();
+      if (menuY >= cardsSectionRect.top && menuY <= cardsSectionRect.bottom) {
+        // We're in the cards section, check individual cards
+        const cards = document.querySelectorAll('.card');
+        let foundCard = false;
+
+        for (const card of cards) {
+          const cardRect = card.getBoundingClientRect();
+          // Use a larger detection area for faster transitions
+          const cardInner = card.querySelector('.card-inner');
+          const cardInnerRect = cardInner ? cardInner.getBoundingClientRect() : cardRect;
+
+          if (menuY >= cardInnerRect.top && menuY <= cardInnerRect.bottom) {
+            foundCard = true;
+            if (cardInner) {
+              const bgColor = window.getComputedStyle(cardInner).backgroundColor;
+              const rgb = bgColor.match(/\d+/g);
+              if (rgb && rgb.length >= 3) {
+                const brightness = (parseInt(rgb[0]) * 299 + parseInt(rgb[1]) * 587 + parseInt(rgb[2]) * 114) / 1000;
+                isDark = brightness < 128;
+              }
+            }
+            break;
+          }
+        }
+
+        // If we're in cards section but not on a card (white space), use black icon
+        if (!foundCard) {
+          isDark = false; // White background = black icon
+        }
+
+        // Apply the class
+        if (isDark) {
+          hamburgerMenu.classList.add('on-dark');
+          hamburgerMenu.classList.remove('on-light');
+        } else {
+          hamburgerMenu.classList.add('on-light');
+          hamburgerMenu.classList.remove('on-dark');
+        }
+        return;
+      }
+    }
+
+    // Check if we're in the companies section (part of gallery-spotlight)
+    const companiesSection = document.querySelector('.companies-section');
+    if (companiesSection) {
+      const companiesRect = companiesSection.getBoundingClientRect();
+      if (menuY >= companiesRect.top && menuY <= companiesRect.bottom) {
+        // Companies section has dark background, use white icon
+        hamburgerMenu.classList.add('on-dark');
+        hamburgerMenu.classList.remove('on-light');
+        return;
+      }
+    }
+
+    // Otherwise, check all sections
+    const sections = document.querySelectorAll('section, .hero, .gallery-spotlight, .intro-section, .outro-section');
+    for (const section of sections) {
+      const rect = section.getBoundingClientRect();
+
+      if (menuY >= rect.top && menuY <= rect.bottom) {
+        // Get computed background color
+        const bgColor = window.getComputedStyle(section).backgroundColor;
+
+        // Check if background is dark or light
+        const rgb = bgColor.match(/\d+/g);
+        if (rgb && rgb.length >= 3) {
+          const brightness = (parseInt(rgb[0]) * 299 + parseInt(rgb[1]) * 587 + parseInt(rgb[2]) * 114) / 1000;
+          isDark = brightness < 128;
+        }
+        break;
+      }
+    }
+
+    // Apply appropriate class based on background
+    if (isDark) {
+      // Dark/Black background → White icon and container
+      hamburgerMenu.classList.add('on-dark');
+      hamburgerMenu.classList.remove('on-light');
+    } else {
+      // White/Light background → Black icon and container
+      hamburgerMenu.classList.add('on-light');
+      hamburgerMenu.classList.remove('on-dark');
+    }
+  }
+
+  // Update on scroll with immediate detection (no throttling for instant response)
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateDropdownStyle();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // Also update on any resize
+  window.addEventListener('resize', updateDropdownStyle);
+
+  // Initial update
+  updateDropdownStyle();
+}
+
+function initPortfolioModal() {
+  const portfolioBtn = document.getElementById('portfolio-btn');
+  const modal = document.getElementById('portfolio-modal');
+  const modalOverlay = modal.querySelector('.portfolio-modal-overlay');
+  const modalContent = modal.querySelector('.portfolio-modal-content');
+  const closeBtn = document.getElementById('portfolio-modal-close');
+
+  // Custom easing function
+  const hopEasing = (t) =>
+    t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+
+  // Open modal
+  if (portfolioBtn) {
+    portfolioBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.classList.add('active');
+
+      // Animate overlay
+      gsap.to(modalOverlay, {
+        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+        duration: 0.8,
+        ease: hopEasing,
+      });
+
+      // Fade in content
+      gsap.to(modalContent, {
+        opacity: 1,
+        duration: 0.6,
+        delay: 0.3,
+      });
+    });
+  }
+
+  // Close modal
+  const closeModal = () => {
+    // Fade out content
+    gsap.to(modalContent, {
+      opacity: 0,
+      duration: 0.3,
+    });
+
+    // Animate overlay
+    gsap.to(modalOverlay, {
+      clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
+      duration: 0.6,
+      delay: 0.2,
+      ease: hopEasing,
+      onComplete: () => {
+        modal.classList.remove('active');
+      },
+    });
+  };
+
+  closeBtn.addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', closeModal);
+}
+
 function initContactModal() {
-  const contactBtns = document.querySelectorAll('.contact-btn a, .contact-btn .btn, .outro-btn a, .outro-btn .btn');
+  const contactBtns = document.querySelectorAll('.hamburger-link[href*="vercel"], .outro-btn a, .outro-btn .btn');
   const modal = document.getElementById('contact-modal');
   const modalOverlay = modal.querySelector('.contact-modal-overlay');
   const modalContent = modal.querySelector('.contact-modal-content');
