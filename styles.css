@@ -20,7 +20,20 @@ body {
 [class*="notification"],
 [class*="badge"],
 [id*="notification"],
-[id*="badge"] {
+[id*="badge"],
+[class*="issue"],
+[id*="issue"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Hide Next.js development indicators */
+nextjs-portal,
+#__next-build-watcher,
+.__next-dev-overlay,
+[data-nextjs-dialog],
+[data-nextjs-toast] {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
